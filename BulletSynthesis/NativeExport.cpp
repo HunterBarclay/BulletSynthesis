@@ -107,7 +107,7 @@ extern "C" {
 		((btCompoundShape*)compound)->addChildShape(trans, (btCollisionShape*)shape);
 	}
 	EXPORT Vector_3_Native Get_Box_Shape_Extents(void* shape) {
-		return To_Vector_3_Native(((btBoxShape*)shape)->getHalfExtentsWithoutMargin());
+		return To_Vector_3_Native(((btBoxShape*)shape)->getHalfExtentsWithMargin());
 	}
 
 	///

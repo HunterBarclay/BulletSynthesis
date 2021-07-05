@@ -3,7 +3,9 @@
 namespace BulletTestSharp {
     class Program {
         static void Main(string[] args) {
-            Console.WriteLine("Hello World");
+            var ptr = Synthesis.PhysicsManager.CreateBoxShape(1, 5, 3);
+            var extents = Synthesis.PhysicsManager.GetBoxShapeExtents(ptr);
+            Console.WriteLine($"{extents.x}, {extents.y}, {extents.z}");
         }
     }
 }
