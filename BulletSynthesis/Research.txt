@@ -1,0 +1,11 @@
+Root Docs for C++
+https://pybullet.org/Bullet/BulletFull/index.html
+
+In general collision shapes
+https://pybullet.org/Bullet/BulletFull/classbtCollisionShape.html
+
+Convex Point Cluster Collision Shapes
+https://pybullet.org/Bullet/BulletFull/classbtConvexPointCloudShape.html
+
+Compound Collision Shapes for multiple Collision Shapes
+https://pybullet.org/Bullet/BulletFull/classbtCompoundShape.html
