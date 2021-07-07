@@ -15,28 +15,28 @@ extern "C" {
 	/// Structs
 	/// 
 
-	struct Vector_3_Native {
-		double x;
-		double y;
-		double z;
+	struct Vec3 {
+		float x;
+		float y;
+		float z;
 	};
 
-	struct Quaternion_Native {
-		double x;
-		double y;
-		double z;
-		double w;
+	struct Quat {
+		float x;
+		float y;
+		float z;
+		float w;
 	};
 
 	/// 
 	/// Misc Functions
 	/// 
 	
-	inline btQuaternion To_Bullet_Quaternion(const Quaternion_Native& q) {
+	inline btQuaternion To_Bullet_Quaternion(const Quat& q) {
 		return btQuaternion(btScalar(q.x), btScalar(q.y), btScalar(q.z), btScalar(q.w));
 	}
 
-	inline Quaternion_Native To_Quaternion_Native(const btQuaternion& q) {
+	inline Quat To_Quaternion_Native(const btQuaternion& q) {
 		return {
 			q.getX(),
 			q.getY(),
@@ -45,11 +45,11 @@ extern "C" {
 		};
 	}
 
-	inline btVector3 To_Bullet_Vector_3(const Vector_3_Native& v) {
+	inline btVector3 To_Bullet_Vector_3(const Vec3& v) {
 		return btVector3(btScalar(v.x), btScalar(v.y), btScalar(v.z));
 	}
 
-	inline Vector_3_Native To_Vector_3_Native(const btVector3& v) {
+	inline Vec3 To_Vector_3_Native(const btVector3& v) {
 		return {
 			v.getX(),
 			v.getY(),
@@ -57,7 +57,7 @@ extern "C" {
 		};
 	}
 
-	btVector3* To_Vector_3_Array(double* verts, int len) {
+	btVector3* To_Vector_3_Array(float* verts, int len) {
 		btVector3* bt_verts = new btVector3[len / 3];
 		int j;
 		for (int i = 0; i < len / 3; i++) {
@@ -82,16 +82,16 @@ extern "C" {
 	EXPORT void* Create_Compound_Shape(int initChildCapacity) {
 		return new btCompoundShape(true, initChildCapacity);
 	}
-	EXPORT void* Create_Box_Shape(Vector_3_Native halfSize) {
+	EXPORT void* Create_Box_Shape(Vec3 halfSize) {
 		return new btBoxShape(To_Bullet_Vector_3(halfSize));
 	}
-	EXPORT void* Create_Convex_Shape(double* verts, int len) {
+	EXPORT void* Create_Convex_Shape(float* verts, int len) {
 		btVector3* bt_verts = To_Vector_3_Array(verts, len);
 		btConvexPointCloudShape* shape = new btConvexPointCloudShape(bt_verts, len / 3, btVector3(btScalar(1.), btScalar(1.), btScalar(1.)));
 		delete[] bt_verts;
 		return shape;
 	}
-	EXPORT void* Create_RigidBody_Dynamic(double mass, void* collisionShape) {
+	EXPORT void* Create_RigidBody_Dynamic(float mass, void* collisionShape) {
 		return synthesis::PhysicsManager::getInstance().createDynamicRigidBody((btCollisionShape*)collisionShape, btScalar(mass));
 	}
 	EXPORT void* Create_Rigidbody_Static(void* collisionShape) {
@@ -102,11 +102,11 @@ extern "C" {
 	/// Shape Manipulation
 	///
 
-	EXPORT void Add_Shape_To_Compound_Shape(void* compound, void* shape, Vector_3_Native pos, Quaternion_Native rot) {
+	EXPORT void Add_Shape_To_Compound_Shape(void* compound, void* shape, Vec3 pos, Quat rot) {
 		btTransform trans = btTransform(To_Bullet_Quaternion(rot), To_Bullet_Vector_3(pos));
 		((btCompoundShape*)compound)->addChildShape(trans, (btCollisionShape*)shape);
 	}
-	EXPORT Vector_3_Native Get_Box_Shape_Extents(void* shape) {
+	EXPORT Vec3 Get_Box_Shape_Extents(void* shape) {
 		return To_Vector_3_Native(((btBoxShape*)shape)->getHalfExtentsWithMargin());
 	}
 
@@ -114,41 +114,41 @@ extern "C" {
 	/// Rigidbody Manipulation
 	/// 
 	
-	EXPORT void Apply_Force(void* rigidbody, Vector_3_Native force, Vector_3_Native relativePosition) {
+	EXPORT void Apply_Force(void* rigidbody, Vec3 force, Vec3 relativePosition) {
 		((btRigidBody*)rigidbody)->applyForce(To_Bullet_Vector_3(force), To_Bullet_Vector_3(relativePosition));
 	}
 
-	EXPORT Vector_3_Native Get_Node_Linear_Velocity(void* rigidbody) {
+	EXPORT Vec3 Get_RigidBody_Linear_Velocity(void* rigidbody) {
 		return To_Vector_3_Native(((btRigidBody*)rigidbody)->getLinearVelocity());
 	}
-	EXPORT void Set_Node_Linear_Velocity(void* rigidbody, Vector_3_Native vel) {
+	EXPORT void Set_RigidBody_Linear_Velocity(void* rigidbody, Vec3 vel) {
 		((btRigidBody*)rigidbody)->setLinearVelocity(To_Bullet_Vector_3(vel));
 	}
 
-	EXPORT Vector_3_Native Get_Node_Angular_Velocity(void* rigidbody) {
+	EXPORT Vec3 Get_RigidBody_Angular_Velocity(void* rigidbody) {
 		return To_Vector_3_Native(((btRigidBody*)rigidbody)->getAngularVelocity());
 	}
-	EXPORT void Set_Node_Angular_Velocity(void* rigidbody, Vector_3_Native vel) {
+	EXPORT void Set_RigidBody_Angular_Velocity(void* rigidbody, Vec3 vel) {
 		((btRigidBody*)rigidbody)->setAngularVelocity(To_Bullet_Vector_3(vel));
 	}
 
-	EXPORT Quaternion_Native Get_Node_Rotation(void* rigidbody) {
+	EXPORT Quat Get_RigidBody_Rotation(void* rigidbody) {
 		btTransform trans;
 		((btRigidBody*)rigidbody)->getMotionState()->getWorldTransform(trans);
 		return To_Quaternion_Native(trans.getRotation());
 	}
-	EXPORT void Set_Node_Rotation(void* rigidbody, Quaternion_Native rotation) {
+	EXPORT void Set_RigidBody_Rotation(void* rigidbody, Quat rotation) {
 		btTransform trans;
 		((btRigidBody*)rigidbody)->getMotionState()->getWorldTransform(trans);
 		trans.setRotation(To_Bullet_Quaternion(rotation));
 	}
 
-	EXPORT Vector_3_Native Get_Node_Position(void* rigidbody) {
+	EXPORT Vec3 Get_RigidBody_Position(void* rigidbody) {
 		btTransform trans;
 		((btRigidBody*)rigidbody)->getMotionState()->getWorldTransform(trans);
 		return To_Vector_3_Native(trans.getOrigin());
 	}
-	EXPORT void Set_Node_Position(void* rigidbody, Vector_3_Native pos) {
+	EXPORT void Set_RigidBody_Position(void* rigidbody, Vec3 pos) {
 		btTransform trans;
 		((btRigidBody*)rigidbody)->getMotionState()->getWorldTransform(trans);
 		trans.setOrigin(To_Bullet_Vector_3(pos));

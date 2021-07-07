@@ -22,28 +22,27 @@ namespace synthesis {
 		/*nodes = std::map<int, PhysicsNode*>();*/
 
 		// _rigidBodies = std::vector<btRigidBody*>();
+		_managedShapes = std::vector<btCollisionShape*>();
 	}
 
 	PhysicsManager::~PhysicsManager() {
 
 		int i;
-		std::vector<btCollisionShape*> shapes = std::vector<btCollisionShape*>();
 		for (i = dynamicsWorld->getNumCollisionObjects() - 1; i >= 0; i--) {
 			btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[i];
 			btRigidBody* body = btRigidBody::upcast(obj);
 			if (body && body->getMotionState()) {
-				shapes.push_back(body->getCollisionShape());
 				delete body->getMotionState();
 			}
 			dynamicsWorld->removeCollisionObject(obj);
 			delete obj;
 		}
 
-		for (i = shapes.size() - 1; i >= 0; i--) {
-			btCollisionShape* shape = shapes.at(i);
+		for (i = _managedShapes.size() - 1; i >= 0; i--) {
+			btCollisionShape* shape = _managedShapes.at(i);
 			if (shape != nullptr)
 				delete shape;
-			shapes.pop_back();
+			_managedShapes.pop_back();
 		}
 
 		/*for (std::map<int, PhysicsNode*>::iterator ptr = nodes.begin(); ptr != nodes.end(); ptr++) {
@@ -71,36 +70,6 @@ namespace synthesis {
 
 		delete collisionConfiguration;
 	}
-
-	//PhysicsNode* PhysicsManager::createSampleNode() {
-
-	//	btCollisionShape* shape = new btBoxShape(
-	//		btVector3(btScalar(.5), btScalar(.5), btScalar(.5))
-	//	);
-
-	//	btTransform groundTransform;
-	//	groundTransform.setIdentity();
-	//	groundTransform.setOrigin(btVector3(0, 0, 0));
-
-	//	btScalar mass(1.);
-
-	//	//rigidbody is dynamic if and only if mass is non zero, otherwise static
-	//	bool isDynamic = (mass != 0.f);
-
-	//	btVector3 localInertia(0, 0, 0);
-	//	if (isDynamic)
-	//		shape->calculateLocalInertia(mass, localInertia);
-
-	//	//using motionstate is optional, it provides interpolation capabilities, and only synchronizes 'active' objects
-	//	btDefaultMotionState* myMotionState = new btDefaultMotionState(groundTransform);
-	//	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, shape, localInertia);
-	//	btRigidBody* body = new btRigidBody(rbInfo);
-
-	//	getWorld()->addRigidBody(body);
-
-	//	PhysicsNode* n = new PhysicsNode(getNextId(), shape, body);
-	//	return n;
-	//}
 
 	void PhysicsManager::Step(float deltaT) {
 

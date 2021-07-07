@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Synthesis.Bullet.Collision;
+using System;
+using Synthesis;
 
 namespace BulletTestSharp {
     class Program {
         static void Main(string[] args) {
-            var ptr = Synthesis.PhysicsManager.CreateBoxShape(1, 5, 3);
-            var extents = Synthesis.PhysicsManager.GetBoxShapeExtents(ptr);
+            var box = BoxShape.Create(new Synthesis.Vec3() { x = 1, y = 5, z = 3 });
+            var extents = box.HalfExtents;
             Console.WriteLine($"{extents.x}, {extents.y}, {extents.z}");
         }
     }

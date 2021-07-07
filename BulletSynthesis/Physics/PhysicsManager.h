@@ -15,7 +15,7 @@ namespace synthesis {
 		PhysicsManager();
 		~PhysicsManager();
 
-		// std::vector<btRigidBody*> _rigidBodies;
+		std::vector<btCollisionShape*> _managedShapes;
 
 		btDefaultCollisionConfiguration* collisionConfiguration;
 		btCollisionDispatcher* dispatcher;
