@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+package SynthesisAPI.Physics;
+
+message Rigidbodies {
+	repeated Rigidbody rigidbodies = 1;
+}
+
+message Rigidbody {
+	Info info = 1;
+	repeated Mesh colliders = 2;
+	PhysicalProperties physicalProperties = 3;
+	PhysicalMaterial physicalMaterial = 4;
+}
+
+message Mesh {
+    /// Tri Mesh Verts vec3
+    repeated float verts = 1;
+    /// Tri Mesh Normals vec3
+    repeated float normals = 2;
+    /// Tri Mesh uv Mapping vec2
+    repeated float uv = 3;
+    /// Tri Mesh indicies (Vert Map)
+    repeated int32 indices = 4;
+}
+
+message PhysicalProperties {
+    double density = 1; /// kg per cubic cm kg/(cm^3)
+    double mass = 2;    /// kg
+    double volume = 3;  /// cm^3
+    double area = 4;    /// cm^2
+    Vector3 com = 5; /// non-negative? Vec3
+}
+
+message PhysicalMaterial {
+
+    enum MaterialType {
+        METAL = 0;
+        PLASTIC = 1;
+    }
+ 
+    /**
+     * Thermal Properties Set Definition for Simulation.
+     */
+    message Thermal {
+        float thermal_conductivity = 1; /// W/(m*K)
+        float specific_heat = 2;        /// J/(g*C)
+        float thermal_expansion_coefficient = 3; /// um/(m*C)
+    }
+
+    /**
+     * Mechanical Properties Set Definition for Simulation.
+     */
+    message Mechanical {
+        // naming scheme changes here
+        float young_mod = 1;        /// GPa
+        float poisson_ratio = 2;    /// ?
+        float shear_mod = 3;        /// MPa
+        float density = 4;          /// g/cm^3
+        float damping_coefficient = 5; /// ?
+    }
+    
+    /**
+     * Strength Properties Set Definition for Simulation.
+     */
+    message Strength {
+        float yield_strength = 1;   /// MPa
+        float tensile_strength = 2; /// MPa
+        bool thermal_treatment = 3; /// yes / no
+    }
+    
+    Info info = 1;              /// Identifiable information (id, name, version, etc)
+    string description = 2;     /// short description of physical material
+
+    Thermal thermal = 3;        /// Thermal Physical properties of the model OPTIONAL
+    Mechanical mechanical = 4;  /// Mechanical properties of the model OPTIONAL
+    Strength strength = 5;      /// Physical Strength properties of the model OPTIONAL
+
+    float dynamic_friction = 6; /// Frictional force for dampening - Interpolate (0-1)
+    float static_friction = 7;  /// Frictional force override at stop - Interpolate (0-1)
+    float restitution = 8;      /// Restitution of the object - Interpolate (0-1)
+
+    bool deformable = 9;        /// should this object deform when encountering large forces - TODO: This needs a proper message and equation field
+    MaterialType matType = 10;  /// generic type to assign some default params
+
+}

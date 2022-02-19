@@ -1,5 +1,4 @@
-﻿using Synthesis.Bullet.Collision;
-using System;
+﻿using System;
 using Synthesis;
 
 namespace BulletTestSharp {

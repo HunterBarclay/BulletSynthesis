@@ -15,8 +15,6 @@ namespace synthesis {
 		PhysicsManager();
 		~PhysicsManager();
 
-		std::vector<btCollisionShape*> _managedShapes;
-
 		btDefaultCollisionConfiguration* collisionConfiguration;
 		btCollisionDispatcher* dispatcher;
 		btBroadphaseInterface* overlappingPairCache;
@@ -24,19 +22,33 @@ namespace synthesis {
 		btDiscreteDynamicsWorld* dynamicsWorld;
 	public:
 		// Eh?
-		static PhysicsManager& getInstance() {
+		static PhysicsManager& GetInstance() {
 			static PhysicsManager instance;
 			return instance;
 		}
 
-		inline btDiscreteDynamicsWorld* getWorld() {
+		static inline void Init() { GetInstance(); }
+
+		void Step(float deltaT);
+		void Run(int frames, float secondsPerFrame);
+		void DestroySimulation();
+
+		void DestroyRigidbody(btRigidBody* rb);
+		void DestroyConstraint(btTypedConstraint* constraint);
+
+		/*inline btDiscreteDynamicsWorld* getWorld() {
 			return dynamicsWorld;
-		}
+		}*/
 
 		// Are these functions necessary?
 		btCollisionShape* createBoxCollisionShape(btVector3 halfSize);
 		btRigidBody* createStaticRigidBody(btCollisionShape* shape);
 		btRigidBody* createDynamicRigidBody(btCollisionShape* shape, btScalar mass);
+
+		btHingeConstraint* createHingeConstraint(
+			btRigidBody* bodyA, btRigidBody* bodyB, btVector3 pivotA, btVector3 pivotB,
+			btVector3 axisA, btVector3 axisB, float lowLim, float highLim
+		);
 
 		inline int getRigidBodyActivationState(btRigidBody* body) { return body->getActivationState(); }
 		inline void setRigidBodyActivationState(btRigidBody* body, int state) { body->setActivationState(state); }
@@ -47,8 +59,7 @@ namespace synthesis {
 			return id;
 		}*/
 
-		void Step(float deltaT);
-		void Run(int frames, double secondsPerFrame);
+		// void Run(int frames, double secondsPerFrame);
 	};
 
 }
