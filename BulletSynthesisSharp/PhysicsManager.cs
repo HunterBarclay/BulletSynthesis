@@ -1,30 +1,18 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace Synthesis {
 
-    // TODO: Move these to internal when alternative Vec and Quat classes are available
-    [StructLayout(LayoutKind.Sequential)]
-    public struct Vec3 {
-        public float x;
-        public float y;
-        public float z;
-    }
-
-    [StructLayout(LayoutKind.Sequential)]
-    public struct Quat {
-        public float x;
-        public float y;
-        public float z;
-        public float w;
-    }
-
     /// <summary>
     /// Manager class for interpreting between a c# interface and a c++ interface
     /// </summary>
-    public static class PhysicsManager {
+    public static class PhysicsHandler {
 
-        #region Simulation Control
+        #region Wrapper Code
+
+        #region Simulation
 
         public static void Step(float deltaT) {
             NativePhysics.Physics_Step(deltaT);
@@ -33,6 +21,8 @@ namespace Synthesis {
         public static void DestroySimulation() {
             NativePhysics.Physics_Destroy_Simulation();
         }
+        public static RayHitClosest RayCastClosest(Vec3 from, Vec3 to)
+            => NativePhysics.Physics_Ray_Cast_Closest(from, to);
 
         #endregion
 
@@ -111,6 +101,8 @@ namespace Synthesis {
             => NativePhysics.Get_RigidBody_Position(rigidbody.Pointer);
         public static unsafe Quat GetRigidBodyRotation(VoidPointer rigidbody)
             => NativePhysics.Get_RigidBody_Rotation(rigidbody.Pointer);
+        public static unsafe ActivationState GetRigidBodyActivationState(VoidPointer rigidbody)
+            => (ActivationState)Enum.ToObject(typeof(ActivationState), NativePhysics.Get_RigidBody_Activation_State(rigidbody.Pointer));
 
         // Setters
         public static unsafe void SetRigidBodyLinearVelocity(VoidPointer rigidbody, Vec3 velocity) {
@@ -125,6 +117,9 @@ namespace Synthesis {
         public static unsafe void SetRigidBodyRotation(VoidPointer rigidbody, Quat rotation) {
             NativePhysics.Set_RigidBody_Rotation(rigidbody.Pointer, rotation);
         }
+        public static unsafe void SetRigidBodyActivationState(VoidPointer rigidbody, ActivationState state) {
+            NativePhysics.Set_RigidBody_Activation_State(rigidbody.Pointer, (int)state);
+        }
 
         #endregion
 
@@ -138,8 +133,13 @@ namespace Synthesis {
             => NativePhysics.Get_Hinge_Low_Limit(hinge.Pointer);
         public static unsafe float GetHingeHighLimit(VoidPointer hinge)
             => NativePhysics.Get_Hinge_High_Limit(hinge.Pointer);
+        public static unsafe float GetHingeLimitSoftness(VoidPointer hinge)
+            => NativePhysics.Get_Hinge_Limit_Softness(hinge.Pointer);
         public static unsafe void SetHingeLimit(VoidPointer hinge, float low, float high) {
             NativePhysics.Set_Hinge_Limit(hinge.Pointer, low, high);
+        }
+        public static unsafe void SetHingeLimitSoftness(VoidPointer hinge, float softness) {
+            NativePhysics.Set_Hinge_Limit_Softness(hinge.Pointer, softness);
         }
 
         #endregion
@@ -149,12 +149,14 @@ namespace Synthesis {
         /// </summary>
         internal static class NativePhysics {
 
-            #region Simulation Control
+            #region Simulation
 
             [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
             internal extern static unsafe void Physics_Step(float deltaT);
             [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
             internal extern static unsafe void Physics_Destroy_Simulation();
+            [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
+            internal extern static unsafe RayHitClosest Physics_Ray_Cast_Closest(Vec3 from, Vec3 to);
 
             #endregion
 
@@ -219,6 +221,10 @@ namespace Synthesis {
             internal extern static unsafe Vec3 Get_RigidBody_Position(void* rigidbody);
             [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
             internal extern static unsafe void Set_RigidBody_Position(void* rigidbody, Vec3 pos);
+            [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
+            internal extern static unsafe int Get_RigidBody_Activation_State(void* rigidbody);
+            [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
+            internal extern static unsafe void Set_RigidBody_Activation_State(void* rigidbody, int state);
 
             #endregion
 
@@ -232,12 +238,50 @@ namespace Synthesis {
             [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
             internal extern static unsafe float Get_Hinge_High_Limit(void* hinge);
             [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
+            internal extern static unsafe float Get_Hinge_Limit_Softness(void* hinge);
+            [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
             internal extern static unsafe void Set_Hinge_Limit(void* hinge, float low, float high);
+            [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
+            internal extern static unsafe void Set_Hinge_Limit_Softness(void* hinge, float softness);
 
             #endregion
 
         }
 
+        #endregion
+
+    }
+
+    // TODO: Move these to internal when alternative Vec and Quat classes are available
+    [StructLayout(LayoutKind.Sequential)]
+    public struct Vec3 {
+        public float x;
+        public float y;
+        public float z;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct Quat {
+        public float x;
+        public float y;
+        public float z;
+        public float w;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct RayHitClosest {
+        public bool hit;
+        public Vec3 hit_point;
+        public Vec3 hit_normal;
+    }
+
+    public enum ActivationState {
+        ACTIVE_TAG = 1,
+        ISLAND_SLEEPING = 2,
+        WANTS_DEACTIVATION = 3,
+        DISABLE_DEACTIVATION = 4,
+        DISABLE_SIMULATION = 5,
+        FIXED_BASE_MULTI_BODY = 6
     }
 
     public struct VoidPointer {

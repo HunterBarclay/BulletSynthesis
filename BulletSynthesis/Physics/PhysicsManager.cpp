@@ -146,6 +146,7 @@ namespace synthesis {
 		btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, shape, localInertia);
 		btRigidBody* body = new btRigidBody(rbInfo);
 		dynamicsWorld->addRigidBody(body);
+
 		return body;
 		// body->setRestitution(btScalar(0.9));
 		
@@ -176,7 +177,9 @@ namespace synthesis {
 		return hinge;
 	}
 
-	
+	void PhysicsManager::rayCastClosest(btVector3 from, btVector3 to, btCollisionWorld::ClosestRayResultCallback& callback) {
+		dynamicsWorld->rayTest(from, to, callback);
+	}
 
 	void PhysicsManager::Run(int frames, float secondsPerFrame) {
 		// createSampleNode();

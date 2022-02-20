@@ -7,19 +7,6 @@
 extern "C" {
 
 	/// 
-	/// Simulation Control
-	/// 
-
-	EXPORT void Physics_Step(float deltaT) {
-		// synthesis::PhysicsManager::getInstance().Step(deltaT);
-		synthesis::PhysicsManager::GetInstance().Step(deltaT);
-	}
-
-	EXPORT void Physics_Destroy_Simulation() {
-		synthesis::PhysicsManager::GetInstance().DestroySimulation();
-	}
-
-	/// 
 	/// Structs
 	/// 
 
@@ -36,10 +23,16 @@ extern "C" {
 		float w;
 	};
 
+	struct RayHitClosest {
+		bool hit;
+		Vec3 hit_point;
+		Vec3 hit_normal;
+	};
+
 	/// 
 	/// Misc Functions
 	/// 
-	
+
 	inline btQuaternion To_Bullet_Quaternion(const Quat& q) {
 		return btQuaternion(btScalar(q.x), btScalar(q.y), btScalar(q.z), btScalar(q.w));
 	}
@@ -74,6 +67,29 @@ extern "C" {
 			bt_verts[i] = btVector3(btScalar(verts[j]), btScalar(verts[j + 1]), btScalar(verts[j + 2]));
 		}
 		return bt_verts;
+	}
+
+	/// 
+	/// Simulation
+	/// 
+
+	EXPORT void Physics_Step(float deltaT) {
+		// synthesis::PhysicsManager::getInstance().Step(deltaT);
+		synthesis::PhysicsManager::GetInstance().Step(deltaT);
+	}
+
+	EXPORT void Physics_Destroy_Simulation() {
+		synthesis::PhysicsManager::GetInstance().DestroySimulation();
+	}
+
+	EXPORT RayHitClosest Physics_Ray_Cast_Closest(Vec3 from, Vec3 to) {
+		btCollisionWorld::ClosestRayResultCallback callback(To_Bullet_Vector_3(from), To_Bullet_Vector_3(to));
+		synthesis::PhysicsManager::GetInstance().rayCastClosest(callback.m_rayFromWorld, callback.m_rayToWorld, callback);
+		return {
+			callback.hasHit(),
+			To_Vector_3_Native(callback.m_hitPointWorld),
+			To_Vector_3_Native(callback.m_hitNormalWorld)
+		};
 	}
 
 	/// 
@@ -196,6 +212,13 @@ extern "C" {
 		((btRigidBody*)rigidbody)->getMotionState()->setWorldTransform(trans);
 	}
 
+	EXPORT int Get_RigidBody_Activation_State(void* rigidbody) {
+		return ((btRigidBody*)rigidbody)->getActivationState();
+	}
+	EXPORT void Set_RigidBody_Activation_State(void* rigidbody, int activationState) {
+		((btRigidBody*)rigidbody)->setActivationState(activationState);
+	}
+
 	/// 
 	/// Constraints
 	/// 
@@ -214,9 +237,15 @@ extern "C" {
 	EXPORT float Get_Hinge_High_Limit(void* hinge) {
 		return ((btHingeConstraint*)hinge)->getUpperLimit();
 	}
+	EXPORT float Get_Hinge_Limit_Softness(void* hinge) {
+		return ((btHingeConstraint*)hinge)->getLimitSoftness();
+	}
 
 	EXPORT void Set_Hinge_Limit(void* hinge, float low, float high) {
 		((btHingeConstraint*)hinge)->setLimit(low, high);
+	}
+	EXPORT void Set_Hinge_Limit_Softness(void* hinge, float softness) {
+		((btHingeConstraint*)hinge)->setLimit(Get_Hinge_Low_Limit(hinge), Get_Hinge_High_Limit(hinge), softness);
 	}
 
 	/// 

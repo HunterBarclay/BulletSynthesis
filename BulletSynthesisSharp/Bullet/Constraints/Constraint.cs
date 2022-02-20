@@ -12,27 +12,38 @@ namespace Synthesis {
         protected Constraint(VoidPointer ptr) {
             _constraint_ptr = ptr;
         }
+
+        public virtual void Destroy() { throw new NotImplementedException(); }
     }
 
     public class HingeConstraint : Constraint {
 
-        public (float low, float high) Limit {
-            get => (PhysicsManager.GetHingeLowLimit(_constraint_ptr), PhysicsManager.GetHingeHighLimit(_constraint_ptr));
-            set => PhysicsManager.SetHingeLimit(_constraint_ptr, value.low, value.high);
+        public (float low, float high) Limits {
+            get => (PhysicsHandler.GetHingeLowLimit(_constraint_ptr), PhysicsHandler.GetHingeHighLimit(_constraint_ptr));
+            set => PhysicsHandler.SetHingeLimit(_constraint_ptr, value.low, value.high);
+        }
+
+        public float Softness {
+            get => PhysicsHandler.GetHingeLimitSoftness(_constraint_ptr);
+            set => PhysicsHandler.SetHingeLimitSoftness(_constraint_ptr, value);
         }
 
         internal HingeConstraint(VoidPointer ptr) : base(ptr) { }
 
         ~HingeConstraint() {
-            PhysicsManager.DeleteHingeConstraint(_constraint_ptr);
+            Destroy();
+        }
+
+        public override void Destroy() {
+            PhysicsHandler.DeleteHingeConstraint(_constraint_ptr);
         }
 
         public static HingeConstraint Create(PhysicsObject a, PhysicsObject b, Vec3 pivotA, Vec3 pivotB, Vec3 axisA, Vec3 axisB) {
-            var hinge = new HingeConstraint(PhysicsManager.CreateHingeConstraint(a._rigidbody_ptr, b._rigidbody_ptr, pivotA, pivotB, axisA, axisB, 0.1f, 0));
+            var hinge = new HingeConstraint(PhysicsHandler.CreateHingeConstraint(a._rigidbody_ptr, b._rigidbody_ptr, pivotA, pivotB, axisA, axisB, 0.1f, 0));
             return hinge;
         }
         public static HingeConstraint Create(PhysicsObject a, PhysicsObject b, Vec3 pivotA, Vec3 pivotB, Vec3 axisA, Vec3 axisB, float lowLim, float highLim) {
-            var hinge = new HingeConstraint(PhysicsManager.CreateHingeConstraint(a._rigidbody_ptr, b._rigidbody_ptr, pivotA, pivotB, axisA, axisB, lowLim, highLim));
+            var hinge = new HingeConstraint(PhysicsHandler.CreateHingeConstraint(a._rigidbody_ptr, b._rigidbody_ptr, pivotA, pivotB, axisA, axisB, lowLim, highLim));
             return hinge;
         }
     }

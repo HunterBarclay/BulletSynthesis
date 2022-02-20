@@ -2,6 +2,7 @@
 #define SYNTHESIS_PHYSICS_MANAGER
 
 #include "btBulletDynamicsCommon.h"
+// #include "BulletCollision/CollisionDispatch/btCollisionWorld.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -50,8 +51,10 @@ namespace synthesis {
 			btVector3 axisA, btVector3 axisB, float lowLim, float highLim
 		);
 
-		inline int getRigidBodyActivationState(btRigidBody* body) { return body->getActivationState(); }
-		inline void setRigidBodyActivationState(btRigidBody* body, int state) { body->setActivationState(state); }
+		// inline int getRigidBodyActivationState(btRigidBody* body) { return body->getActivationState(); }
+		// inline void setRigidBodyActivationState(btRigidBody* body, int state) { body->setActivationState(state); }
+
+		void rayCastClosest(btVector3 from, btVector3 to, btCollisionWorld::ClosestRayResultCallback& callback);
 
 		/*int getNextId() {
 			static int id = 0;
