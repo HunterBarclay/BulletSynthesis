@@ -4,3 +4,6 @@
 [submodule "proto/mirabuf"]
 	path = proto/mirabuf
 	url = https://github.com/HiceS/mirabuf
+[submodule "CMakeStuff/dependencies/bullet3"]
+	path = CMakeStuff/dependencies/bullet3
+	url = https://github.com/bulletphysics/bullet3
