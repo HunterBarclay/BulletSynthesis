@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 152187155}
   - component: {fileID: 152187154}
   - component: {fileID: 152187153}
+  - component: {fileID: 152187157}
   m_Layer: 0
   m_Name: GroundBig
   m_TagString: Untagged
@@ -212,12 +213,25 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 152187152}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.1, z: 0}
   m_LocalScale: {x: 10, y: 0.2, z: 10}
   m_Children: []
   m_Father: {fileID: 1363090147}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &152187157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152187152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0edaa821ccf7e0b4794d6a72785f4afc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkipDelete: 0
 --- !u!1 &557198805
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,7 +438,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &769690435
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -518,7 +532,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &798335281
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -599,7 +613,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &925248936
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -758,6 +772,7 @@ GameObject:
   - component: {fileID: 1343589752}
   - component: {fileID: 1343589751}
   - component: {fileID: 1343589750}
+  - component: {fileID: 1343589754}
   m_Layer: 0
   m_Name: PuppetA
   m_TagString: Untagged
@@ -841,6 +856,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1343589754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1343589749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0edaa821ccf7e0b4794d6a72785f4afc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkipDelete: 0
 --- !u!1 &1363090146
 GameObject:
   m_ObjectHideFlags: 0
@@ -865,7 +893,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1363090146}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 152187156}
@@ -885,6 +913,7 @@ GameObject:
   - component: {fileID: 1793465824}
   - component: {fileID: 1793465823}
   - component: {fileID: 1793465822}
+  - component: {fileID: 1793465826}
   m_Layer: 0
   m_Name: PuppetB
   m_TagString: Untagged
@@ -968,6 +997,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1793465826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1793465821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0edaa821ccf7e0b4794d6a72785f4afc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkipDelete: 0
 --- !u!1 &2013372161
 GameObject:
   m_ObjectHideFlags: 0
@@ -997,11 +1039,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef93aa8daa1ffc6428625f166dd5e286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PuppetA: {fileID: 1343589749}
-  PuppetB: {fileID: 1793465821}
-  PuppetC: {fileID: 769690434}
-  PointA: {fileID: 925248935}
-  PointB: {fileID: 798335280}
+  PuppetA: {fileID: 1343589754}
+  PuppetB: {fileID: 1793465826}
+  Ground: {fileID: 152187157}
 --- !u!4 &2013372163
 Transform:
   m_ObjectHideFlags: 0

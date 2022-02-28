@@ -92,6 +92,14 @@ extern "C" {
 		};
 	}
 
+	EXPORT Vec3 Get_World_Gravity() {
+		return To_Vector_3_Native(synthesis::PhysicsManager::GetInstance().getGravity());
+	}
+
+	EXPORT void Set_World_Gravity(Vec3 gravity) {
+		synthesis::PhysicsManager::GetInstance().setGravity(To_Bullet_Vector_3(gravity));
+	}
+
 	/// 
 	/// Deletion
 	/// 
@@ -219,16 +227,26 @@ extern "C" {
 		((btRigidBody*)rigidbody)->setActivationState(activationState);
 	}
 
+	EXPORT float Get_RigidBody_Linear_Damping(void* rigidbody) {
+		return ((btRigidBody*)rigidbody)->getLinearDamping();
+	}
+	EXPORT float Get_RigidBody_Angular_Damping(void* rigidbody) {
+		return ((btRigidBody*)rigidbody)->getAngularDamping();
+	}
+	EXPORT void Set_RigidBody_Damping(void* rigidbody, float ld, float ad) {
+		((btRigidBody*)rigidbody)->setDamping(ld, ad);
+	}
+
 	/// 
 	/// Constraints
 	/// 
 
 	EXPORT void* Create_Hinge_Constraint(
 		void* bodyA, void* bodyB, Vec3 pivotA, Vec3 pivotB,
-		Vec3 axisA, Vec3 axisB, float lowLim, float highLim)
+		Vec3 axisA, Vec3 axisB, float lowLim, float highLim, bool internalCollision)
 	{
 		return synthesis::PhysicsManager::GetInstance().createHingeConstraint((btRigidBody*)bodyA, (btRigidBody*)bodyB,
-			To_Bullet_Vector_3(pivotA), To_Bullet_Vector_3(pivotB), To_Bullet_Vector_3(axisA), To_Bullet_Vector_3(axisB), lowLim, highLim);
+			To_Bullet_Vector_3(pivotA), To_Bullet_Vector_3(pivotB), To_Bullet_Vector_3(axisA), To_Bullet_Vector_3(axisB), lowLim, highLim, internalCollision);
 	}
 
 	EXPORT float Get_Hinge_Low_Limit(void* hinge) {
@@ -240,12 +258,40 @@ extern "C" {
 	EXPORT float Get_Hinge_Limit_Softness(void* hinge) {
 		return ((btHingeConstraint*)hinge)->getLimitSoftness();
 	}
+	EXPORT float Get_Hinge_Angle(void* hinge) {
+		return ((btHingeConstraint*)hinge)->getHingeAngle();
+	}
 
 	EXPORT void Set_Hinge_Limit(void* hinge, float low, float high) {
 		((btHingeConstraint*)hinge)->setLimit(low, high);
 	}
 	EXPORT void Set_Hinge_Limit_Softness(void* hinge, float softness) {
 		((btHingeConstraint*)hinge)->setLimit(Get_Hinge_Low_Limit(hinge), Get_Hinge_High_Limit(hinge), softness);
+	}
+
+	/// 
+	/// Hinge Motor
+	/// 
+	
+	EXPORT void Set_Hinge_Motor_Enable(void* hinge, bool enable) {
+		((btHingeConstraint*)hinge)->enableMotor(enable);
+	}
+	EXPORT void Set_Hinge_Motor_Max_Impulse(void* hinge, float maxImpulse) {
+		((btHingeConstraint*)hinge)->setMaxMotorImpulse(maxImpulse);
+	}
+	EXPORT void Set_Hinge_Motor_Target_Velocity(void* hinge, float targetVelocity) {
+		((btHingeConstraint*)hinge)->setMotorTargetVelocity(targetVelocity);
+	}
+
+	EXPORT bool Get_Hinge_Motor_Enable(void* hinge) {
+		// TODO: Check if this actually works
+		return ((btHingeConstraint*)hinge)->getEnableAngularMotor();
+	}
+	EXPORT float Get_Hinge_Motor_Max_Impulse(void* hinge) {
+		return ((btHingeConstraint*)hinge)->getMaxMotorImpulse();
+	}
+	EXPORT float Get_Hinge_Motor_Target_Velocity(void* hinge) {
+		return ((btHingeConstraint*)hinge)->getMotorTargetVelocity();
 	}
 
 	/// 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Synthesis {
-    public class Shape {
+    public class Shape : IDisposable {
         internal VoidPointer _shape_ptr;
 
         protected Shape(VoidPointer ptr) {
@@ -11,10 +11,10 @@ namespace Synthesis {
         }
 
         ~Shape() {
-            Destroy();
+            // Dispose();
         }
 
-        public void Destroy() {
+        public void Dispose() {
             PhysicsHandler.DeleteCollisionShape(_shape_ptr);
         }
     }
@@ -61,5 +61,9 @@ namespace Synthesis {
             var shape = new SphereShape(PhysicsHandler.CreateSphereShape(radius));
             return shape;
         }
+    }
+
+    public class ConvexShape : Shape {
+        internal ConvexShape(VoidPointer ptr) : base(ptr) { }
     }
 }

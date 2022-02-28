@@ -5,6 +5,7 @@ using UnityEngine;
 using Synthesis;
 
 public class BulletPuppet : MonoBehaviour {
+    public bool SkipDelete = false;
     public PhysicsObject BulletRep;
 
     public void Start() {
@@ -12,6 +13,7 @@ public class BulletPuppet : MonoBehaviour {
     }
 
     public void OnDestroy() {
-        BulletManager.UnregisterPuppet(this);
+        if (!SkipDelete)
+            BulletManager.UnregisterPuppet(this);
     }
 }

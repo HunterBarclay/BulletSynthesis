@@ -34,6 +34,9 @@ namespace synthesis {
 		void Run(int frames, float secondsPerFrame);
 		void DestroySimulation();
 
+		inline btVector3 getGravity() { return dynamicsWorld->getGravity(); }
+		inline void setGravity(const btVector3& gravity) { dynamicsWorld->setGravity(gravity); }
+
 		void DestroyRigidbody(btRigidBody* rb);
 		void DestroyConstraint(btTypedConstraint* constraint);
 
@@ -48,8 +51,10 @@ namespace synthesis {
 
 		btHingeConstraint* createHingeConstraint(
 			btRigidBody* bodyA, btRigidBody* bodyB, btVector3 pivotA, btVector3 pivotB,
-			btVector3 axisA, btVector3 axisB, float lowLim, float highLim
+			btVector3 axisA, btVector3 axisB, float lowLim, float highLim, bool internalCollision
 		);
+
+		void deleteAssociatedConstraints(btRigidBody* body);
 
 		// inline int getRigidBodyActivationState(btRigidBody* body) { return body->getActivationState(); }
 		// inline void setRigidBodyActivationState(btRigidBody* body, int state) { body->setActivationState(state); }

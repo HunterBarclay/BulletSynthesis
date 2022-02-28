@@ -29,7 +29,7 @@ namespace synthesis {
 
 	PhysicsManager::~PhysicsManager() {
 
-		int i;
+		/*int i;
 		for (i = dynamicsWorld->getNumCollisionObjects() - 1; i >= 0; i--) {
 			btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[i];
 			btRigidBody* body = btRigidBody::upcast(obj);
@@ -38,7 +38,7 @@ namespace synthesis {
 			}
 			dynamicsWorld->removeCollisionObject(obj);
 			delete obj;
-		}
+		}*/
 
 		/*for (i = _managedShapes.size() - 1; i >= 0; i--) {
 			btCollisionShape* shape = _managedShapes.at(i);
@@ -73,7 +73,19 @@ namespace synthesis {
 		delete collisionConfiguration;
 	}
 
+	void PhysicsManager::deleteAssociatedConstraints(btRigidBody* body) {
+		for (int i = 0; i < body->getNumConstraintRefs(); i++) {
+			btTypedConstraint* constraint = body->getConstraintRef(i);
+			if (constraint)
+				DestroyConstraint(constraint);
+		}
+	}
+
 	void PhysicsManager::DestroyRigidbody(btRigidBody* rb) {
+		if (!rb)
+			return;
+
+		deleteAssociatedConstraints(rb);
 		if (rb->getMotionState()) {
 			delete rb->getMotionState();
 		}
@@ -91,11 +103,13 @@ namespace synthesis {
 		for (i = dynamicsWorld->getNumCollisionObjects() - 1; i >= 0; i--) {
 			btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[i];
 			btRigidBody* body = btRigidBody::upcast(obj);
-			if (body && body->getMotionState()) {
-				delete body->getMotionState();
+			if (body) {
+				DestroyRigidbody(body);
 			}
-			dynamicsWorld->removeCollisionObject(obj);
-			delete obj;
+			else {
+				dynamicsWorld->removeCollisionObject(obj);
+				delete obj;
+			}
 		}
 	}
 
@@ -169,11 +183,11 @@ namespace synthesis {
 
 	btHingeConstraint* PhysicsManager::createHingeConstraint(
 		btRigidBody* bodyA, btRigidBody* bodyB, btVector3 pivotA, btVector3 pivotB,
-		btVector3 axisA, btVector3 axisB, float lowLim, float highLim
+		btVector3 axisA, btVector3 axisB, float lowLim, float highLim, bool internalCollision
 	) {
 		btHingeConstraint* hinge = new btHingeConstraint(*bodyA, *bodyB, pivotA, pivotB, axisA, axisB);
 		hinge->setLimit(lowLim, highLim);
-		dynamicsWorld->addConstraint(hinge, false); // TODO: Make collision togglable
+		dynamicsWorld->addConstraint(hinge, !internalCollision); // TODO: Make collision togglable
 		return hinge;
 	}
 

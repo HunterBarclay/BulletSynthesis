@@ -3,8 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Synthesis;
+
 public static class BulletManager {
-    private static List<BulletPuppet> _puppets;
+    private static List<BulletPuppet> _puppets = new List<BulletPuppet>();
+    public static List<Constraint> CachedConstraints = new List<Constraint>();
 
     public static void RegisterPuppet(BulletPuppet puppet) {
         if (_puppets.Exists(x => x.GetHashCode() == puppet.GetHashCode())) {
@@ -31,5 +34,14 @@ public static class BulletManager {
                 }
             }
         });
+    }
+
+    public static void KillAll() {
+        _puppets.ForEach(p => {
+            p.BulletRep.Dispose();
+            p.SkipDelete = true;
+            MonoBehaviour.Destroy(p);
+        });
+        _puppets.Clear();
     }
 }

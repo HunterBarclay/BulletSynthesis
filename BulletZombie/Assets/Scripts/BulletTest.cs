@@ -4,20 +4,11 @@ using UnityEngine;
 using Synthesis;
 
 public class BulletTest : MonoBehaviour {
-    public GameObject PuppetA;
-    public GameObject PuppetB;
-    public GameObject PuppetC;
+    public BulletPuppet PuppetA;
+    public BulletPuppet PuppetB;
+    public BulletPuppet Ground;
 
-    public GameObject PointA;
-    public GameObject PointB;
-
-    private (Shape shape, PhysicsObject obj) _bodyA;
-    private (Shape shape, PhysicsObject obj) _bodyB;
-    private (Shape shape, PhysicsObject obj) _bodyC;
-    private HingeConstraint _hingeA;
-    private HingeConstraint _hingeB;
-
-    private (Shape shape, PhysicsObject obj) _ground;
+    private HingeConstraint _hinge;
 
     private void Awake() {
         PhysicsHandler.DestroySimulation();
@@ -25,39 +16,33 @@ public class BulletTest : MonoBehaviour {
 
     private void Start() {
 
+        PhysicsHandler.SetWorldGravity(ToBullet(0.0f, -9.81f, 0.0f));
+
         // Create Dynamic A
-        _bodyA.shape = BoxShape.Create(new Vec3 { x = 0.5f, y = 0.5f, z = 0.5f });
-        _bodyA.obj = PhysicsObject.Create(_bodyA.shape, 1);
-        _bodyA.obj.ActivationState = ActivationState.DISABLE_DEACTIVATION;
-        _bodyA.obj.Position = new Vec3 { x = 0f, y = 5f, z = 0f };
+        var shapeA = BoxShape.Create(new Vec3 { x = 0.5f, y = 0.5f, z = 0.5f });
+        var objA = PhysicsObject.Create(shapeA, 10);
+        objA.ActivationState = ActivationState.DISABLE_DEACTIVATION;
+        objA.Position = new Vec3 { x = 0f, y = 5f, z = 0f };
+        objA.Damping = (0.05f, 0.0f);
+        PuppetA.BulletRep = objA;
 
         // Create Dynamic B
-        _bodyB.shape = BoxShape.Create(new Vec3 { x = 0.5f, y = 0.5f, z = 0.5f });
-        _bodyB.obj = PhysicsObject.Create(_bodyB.shape, 1);
-        _bodyB.obj.ActivationState = ActivationState.DISABLE_DEACTIVATION;
-        _bodyB.obj.Position = new Vec3 { x = 1f, y = 4f, z = 0f };
-
-        // Create Dynamic C
-        _bodyC.shape = BoxShape.Create(new Vec3 { x = 0.5f, y = 0.5f, z = 0.5f });
-        _bodyC.obj = PhysicsObject.Create(_bodyC.shape, 0);
-        _bodyC.obj.ActivationState = ActivationState.DISABLE_DEACTIVATION;
-        _bodyC.obj.Position = new Vec3 { x = 0f, y = 6f, z = 1f };
-
-        Vec3 pivotA, pivotB, axis;
+        var shapeB = BoxShape.Create(new Vec3 { x = 0.5f, y = 0.5f, z = 0.5f });
+        var objB = PhysicsObject.Create(shapeB, 10);
+        objB.ActivationState = ActivationState.DISABLE_DEACTIVATION;
+        objB.Position = new Vec3 { x = 1f, y = 6f, z = 0f };
+        objB.Damping = (0.05f, 0.0f);
+        PuppetB.BulletRep = objB;
 
         // Create Hinge A
-        // Vec3 pivotA = ToBullet(0.5f, -0.5f, 0.0f);
-        // Vec3 pivotB = ToBullet(-0.5f, 0.5f, 0.0f);
-        // Vec3 axis = ToBullet(0, 0, 1);
-        // _hingeA = HingeConstraint.Create(_bodyA.obj, _bodyB.obj, pivotA, pivotB, axis, axis, -Mathf.PI / 6.0f, Mathf.PI / 6.0f);
-        // _hingeA.Softness = 0.05f;
-
-        // Create Hinge B
-        pivotA = ToBullet(0.0f, 0.5f, 0.5f);
-        pivotB = ToBullet(0.0f, -0.5f, -0.5f);
-        axis = ToBullet(1, 0, 0);
-        _hingeB = HingeConstraint.Create(_bodyA.obj, _bodyC.obj, pivotA, pivotB, axis, axis, -Mathf.PI / 6.0f, Mathf.PI / 4.0f);
-        _hingeB.Softness = 0.05f;
+        Vec3 pivotA = ToBullet( 0.5f,  0.5f,  0.0f);
+        Vec3 pivotB = ToBullet(-0.5f, -0.5f,  0.0f);
+        Vec3 axis = ToBullet(0, 0, 1);
+        _hinge = HingeConstraint.Create(objA, objB, pivotA, pivotB, axis, axis, -Mathf.PI / 2.0f, Mathf.PI / 2.0f);
+        _hinge.LimitSoftness = 0.05f;
+        _hinge.MotorMaxImpulse = 1f;
+        _hinge.MotorTargetVelocity = -Mathf.PI;
+        _hinge.MotorEnable = true;
 
         // Create Static Ground
         var big = BoxShape.Create(new Vec3 { x = 5.0f, y = 0.1f, z = 5.0f });
@@ -65,33 +50,39 @@ public class BulletTest : MonoBehaviour {
         compound.AddShape(big, new Vec3(), ToBullet(Quaternion.identity));
         var groundObj = PhysicsObject.Create(compound);
         groundObj.Position = new Vec3 { x = 0, y = -0.1f,  z = 0 };
-        _ground = (compound, groundObj);
+        Ground.BulletRep = groundObj;
     }
 
-    private MeshRenderer _pointARenderer = null;
     private void Update() {
         PhysicsHandler.Step(Time.deltaTime);
+        BulletManager.UpdatePuppets();
 
-        UpdatePuppet(PuppetA, _bodyA.obj);
-        UpdatePuppet(PuppetB, _bodyB.obj);
-        UpdatePuppet(PuppetC, _bodyC.obj);
+        float sign = Mathf.Sign(_hinge.MotorTargetVelocity);
+        if (sign > 0 ? _hinge.Angle > 60 * Mathf.Deg2Rad : _hinge.Angle < -60 * Mathf.Deg2Rad) {
+            _hinge.MotorTargetVelocity = _hinge.MotorTargetVelocity * -1;
+        }
 
         // Raycast testing
 
-        Debug.Log(Input.mousePosition);
-        float castDistance = 20;
-        Vector3 from = Camera.main.transform.position;
-        Vector3 to = from + ((Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1)) - from).normalized * castDistance);
-        var res = PhysicsHandler.RayCastClosest(ToBullet(from), ToBullet(to));
-        if (_pointARenderer == null)
-            _pointARenderer = PointA.GetComponent<MeshRenderer>();
-        if (res.hit) {
-            _pointARenderer.enabled = true;
-            PointA.transform.position = ToUnity(res.hit_point);
-        } else {
-            _pointARenderer.enabled = false;
-        }
-        PointB.transform.position = to;
+        // Debug.Log(Input.mousePosition);
+        // float castDistance = 20;
+        // Vector3 from = Camera.main.transform.position;
+        // Vector3 to = from + ((Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1)) - from).normalized * castDistance);
+        // var res = PhysicsHandler.RayCastClosest(ToBullet(from), ToBullet(to));
+        // if (_pointARenderer == null)
+        //     _pointARenderer = PointA.GetComponent<MeshRenderer>();
+        // if (res.hit) {
+        //     _pointARenderer.enabled = true;
+        //     PointA.transform.position = ToUnity(res.hit_point);
+        // } else {
+        //     _pointARenderer.enabled = false;
+        // }
+        // PointB.transform.position = to;
+    }
+
+    private void OnDestroy() {
+        BulletManager.KillAll();
+        PhysicsHandler.DestroySimulation();
     }
 
     private void UpdatePuppet(GameObject puppet, PhysicsObject phys) {

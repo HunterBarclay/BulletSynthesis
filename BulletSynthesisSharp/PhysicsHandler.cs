@@ -24,6 +24,12 @@ namespace Synthesis {
         public static RayHitClosest RayCastClosest(Vec3 from, Vec3 to)
             => NativePhysics.Physics_Ray_Cast_Closest(from, to);
 
+        public static Vec3 GetWorldGravity()
+            => NativePhysics.Get_World_Gravity();
+        public static void SetWorldGravity(Vec3 gravity) {
+            NativePhysics.Set_World_Gravity(gravity);
+        }
+
         #endregion
 
         #region Creation
@@ -103,6 +109,10 @@ namespace Synthesis {
             => NativePhysics.Get_RigidBody_Rotation(rigidbody.Pointer);
         public static unsafe ActivationState GetRigidBodyActivationState(VoidPointer rigidbody)
             => (ActivationState)Enum.ToObject(typeof(ActivationState), NativePhysics.Get_RigidBody_Activation_State(rigidbody.Pointer));
+        public static unsafe float GetRigidBodyLinearDamping(VoidPointer rigidbody)
+            => NativePhysics.Get_RigidBody_Linear_Damping(rigidbody.Pointer);
+        public static unsafe float GetRigidBodyAngularDamping(VoidPointer rigidbody)
+            => NativePhysics.Get_RigidBody_Angular_Damping(rigidbody.Pointer);
 
         // Setters
         public static unsafe void SetRigidBodyLinearVelocity(VoidPointer rigidbody, Vec3 velocity) {
@@ -120,14 +130,17 @@ namespace Synthesis {
         public static unsafe void SetRigidBodyActivationState(VoidPointer rigidbody, ActivationState state) {
             NativePhysics.Set_RigidBody_Activation_State(rigidbody.Pointer, (int)state);
         }
+        public static unsafe void SetRigidBodyDamping(VoidPointer rigidbody, float ld, float ad) {
+            NativePhysics.Set_RigidBody_Damping(rigidbody.Pointer, ld, ad);
+        }
 
         #endregion
 
         #region Constraints
 
         public static unsafe VoidPointer CreateHingeConstraint(VoidPointer bodyA, VoidPointer bodyB,
-            Vec3 pivotA, Vec3 pivotB, Vec3 axisA, Vec3 axisB, float lowLim, float highLim)
-            => (VoidPointer)NativePhysics.Create_Hinge_Constraint(bodyA.Pointer, bodyB.Pointer, pivotA, pivotB, axisA, axisB, lowLim, highLim);
+            Vec3 pivotA, Vec3 pivotB, Vec3 axisA, Vec3 axisB, float lowLim, float highLim, bool internalCollision)
+            => (VoidPointer)NativePhysics.Create_Hinge_Constraint(bodyA.Pointer, bodyB.Pointer, pivotA, pivotB, axisA, axisB, lowLim, highLim, internalCollision);
 
         public static unsafe float GetHingeLowLimit(VoidPointer hinge)
             => NativePhysics.Get_Hinge_Low_Limit(hinge.Pointer);
@@ -135,11 +148,34 @@ namespace Synthesis {
             => NativePhysics.Get_Hinge_High_Limit(hinge.Pointer);
         public static unsafe float GetHingeLimitSoftness(VoidPointer hinge)
             => NativePhysics.Get_Hinge_Limit_Softness(hinge.Pointer);
+        public static unsafe float GetHingeAngle(VoidPointer hinge)
+            => NativePhysics.Get_Hinge_Angle(hinge.Pointer);
         public static unsafe void SetHingeLimit(VoidPointer hinge, float low, float high) {
             NativePhysics.Set_Hinge_Limit(hinge.Pointer, low, high);
         }
         public static unsafe void SetHingeLimitSoftness(VoidPointer hinge, float softness) {
             NativePhysics.Set_Hinge_Limit_Softness(hinge.Pointer, softness);
+        }
+
+        #endregion
+
+        #region Hinge Motor
+
+        public static unsafe bool GetHingeMotorEnable(VoidPointer hinge)
+            => NativePhysics.Get_Hinge_Motor_Enable(hinge.Pointer);
+        public static unsafe float GetHingeMotorMaxImpulse(VoidPointer hinge)
+            => NativePhysics.Get_Hinge_Motor_Max_Impulse(hinge.Pointer);
+        public static unsafe float GetHingeMotorTargetVelocity(VoidPointer hinge)
+            => NativePhysics.Get_Hinge_Motor_Target_Velocity(hinge.Pointer);
+
+        public static unsafe void SetHingeMotorEnable(VoidPointer hinge, bool enable) {
+            NativePhysics.Set_Hinge_Motor_Enable(hinge.Pointer, enable);
+        }
+        public static unsafe void SetHingeMotorMaxImpulse(VoidPointer hinge, float maxImpulse) {
+            NativePhysics.Set_Hinge_Motor_Max_Impulse(hinge.Pointer, maxImpulse);
+        }
+        public static unsafe void SetHingeMotorTargetVelocity(VoidPointer hinge, float targetVelocity) {
+            NativePhysics.Set_Hinge_Motor_Target_Velocity(hinge.Pointer, targetVelocity);
         }
 
         #endregion
@@ -157,6 +193,10 @@ namespace Synthesis {
             internal extern static unsafe void Physics_Destroy_Simulation();
             [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
             internal extern static unsafe RayHitClosest Physics_Ray_Cast_Closest(Vec3 from, Vec3 to);
+            [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
+            internal extern static unsafe Vec3 Get_World_Gravity();
+            [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
+            internal extern static unsafe void Set_World_Gravity(Vec3 gravity);
 
             #endregion
 
@@ -221,10 +261,18 @@ namespace Synthesis {
             internal extern static unsafe Vec3 Get_RigidBody_Position(void* rigidbody);
             [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
             internal extern static unsafe void Set_RigidBody_Position(void* rigidbody, Vec3 pos);
+
             [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
             internal extern static unsafe int Get_RigidBody_Activation_State(void* rigidbody);
             [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
             internal extern static unsafe void Set_RigidBody_Activation_State(void* rigidbody, int state);
+
+            [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
+            internal extern static unsafe float Get_RigidBody_Linear_Damping(void* rigidbody);
+            [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
+            internal extern static unsafe float Get_RigidBody_Angular_Damping(void* rigidbody);
+            [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
+            internal extern static unsafe void Set_RigidBody_Damping(void* rigidbody, float ld, float ad);
 
             #endregion
 
@@ -232,7 +280,7 @@ namespace Synthesis {
 
             [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
             internal extern static unsafe void* Create_Hinge_Constraint(void* bodyA, void* bodyB, Vec3 pivotA,
-                Vec3 pivotB, Vec3 axisA, Vec3 axisB, float lowLim, float highLim);
+                Vec3 pivotB, Vec3 axisA, Vec3 axisB, float lowLim, float highLim, bool internalCollision);
             [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
             internal extern static unsafe float Get_Hinge_Low_Limit(void* hinge);
             [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -240,9 +288,29 @@ namespace Synthesis {
             [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
             internal extern static unsafe float Get_Hinge_Limit_Softness(void* hinge);
             [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
+            internal extern static unsafe float Get_Hinge_Angle(void* hinge);
+            [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
             internal extern static unsafe void Set_Hinge_Limit(void* hinge, float low, float high);
             [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
             internal extern static unsafe void Set_Hinge_Limit_Softness(void* hinge, float softness);
+
+            #endregion
+
+            #region Hinge Motor
+
+            [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
+            internal extern static unsafe bool Get_Hinge_Motor_Enable(void* hinge);
+            [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
+            internal extern static unsafe float Get_Hinge_Motor_Max_Impulse(void* hinge);
+            [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
+            internal extern static unsafe float Get_Hinge_Motor_Target_Velocity(void* hinge);
+
+            [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
+            internal extern static unsafe void Set_Hinge_Motor_Enable(void* hinge, bool enable);
+            [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
+            internal extern static unsafe void Set_Hinge_Motor_Max_Impulse(void* hinge, float maxImpulse);
+            [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
+            internal extern static unsafe void Set_Hinge_Motor_Target_Velocity(void* hinge, float targetVelocity);
 
             #endregion
 
