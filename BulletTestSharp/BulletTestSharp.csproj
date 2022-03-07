@@ -6,7 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\CMakeStuff\bin\Release\BulletSynthesis.dll" Link="BulletSynthesis.dll" />
+    <None Include="..\BulletSynthesis\bin\Release\BulletSynthesis.dll" Link="BulletSynthesis.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

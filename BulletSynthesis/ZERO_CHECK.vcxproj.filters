@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\CMakeFiles\09657abc8b9d0632f36b53481feba519\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{72DD4266-EA75-349C-8566-E0A44C4B3490}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

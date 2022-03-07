@@ -1,0 +1,3 @@
+C:/Users/hunte/git/BulletSynthesis/BulletSynthesis/CMakeFiles/BulletSynthesis.dir
+C:/Users/hunte/git/BulletSynthesis/BulletSynthesis/CMakeFiles/ALL_BUILD.dir
+C:/Users/hunte/git/BulletSynthesis/BulletSynthesis/CMakeFiles/ZERO_CHECK.dir

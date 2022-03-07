@@ -3,11 +3,11 @@ project(BulletSynthesis)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_subdirectory(dependencies/bullet3)
+find_package(Bullet CONFIG REQUIRED)
 add_library(BulletSynthesis SHARED src/NativeExport.cpp src/PhysicsManager.cpp src/PhysicsManager.h)
 
-target_compile_definitions(BulletSynthesis PUBLIC BT_USE_TBB)
-target_compile_definitions(BulletSynthesis PUBLIC BT_THREADSAFE)
+# target_compile_definitions(BulletSynthesis PUBLIC BT_USE_TBB)
+# target_compile_definitions(BulletSynthesis PUBLIC BT_THREADSAFE)
 
 set_target_properties(BulletSynthesis
 	PROPERTIES
@@ -19,5 +19,7 @@ set_target_properties(BulletSynthesis PROPERTIES PREFIX "")
 set_target_properties(BulletSynthesis PROPERTIES OUTPUT_NAME "BulletSynthesis$<$<CONFIG:Debug>:>")
 set_target_properties(BulletSynthesis PROPERTIES SUFFIX ".dll")
 
-target_include_directories(BulletSynthesis PUBLIC dependencies/bullet3/src)
-target_link_libraries(BulletSynthesis ${BULLET_LIBRARIES})
+# find_path(BULLET_INCLUDE_DIR btBulletDynamicsCommon.h PATHS ../../vcpkg/installed)
+# target_include_directories(BulletSynthesis PUBLIC ${BULLET_INCLUDE_DIR})
+target_include_directories(BulletSynthesis PUBLIC ../../vcpkg/installed/x64-windows/include/bullet)
+target_link_libraries(BulletSynthesis PRIVATE LinearMath Bullet3Common BulletDynamics BulletSoftBody)

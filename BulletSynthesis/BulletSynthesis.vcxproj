@@ -1,14 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|Win32">
-      <Configuration>Debug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|Win32">
-      <Configuration>Release</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
@@ -17,154 +12,359 @@
       <Configuration>Release</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{1761FBF3-A5B7-3AB6-B34A-BA1B369A5F3D}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{d28d60a4-adc8-4716-a6b4-3b32c26997c1}</ProjectGuid>
-    <RootNamespace>BulletSynthesis</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>BulletSynthesis</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+    <VcpkgEnabled>false</VcpkgEnabled>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v142</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v142</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Label="Shared">
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="do_not_import_user.props" Condition="exists('do_not_import_user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>true</LinkIncremental>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\bin\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">BulletSynthesis.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">BulletSynthesis</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\bin\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">BulletSynthesis.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">BulletSynthesis</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\bin\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">BulletSynthesis.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">BulletSynthesis</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\bin\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">BulletSynthesis.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">BulletSynthesis</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LinkIncremental>false</LinkIncremental>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(ProjectDir)$(Platform)\$(Configuration)\</OutDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(ProjectDir)$(Platform)\$(Configuration)\</OutDir>
-  </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Deps\Bullet3\include\bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Deps\Bullet3\include\bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Deps\Bullet3\include\bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\..\vcpkg\installed\x64-windows\include\bullet;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\include\bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;CMAKE_INTDIR="Debug";BulletSynthesis_EXPORTS</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\";BulletSynthesis_EXPORTS</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\..\vcpkg\installed\x64-windows\include\bullet;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\include\bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\..\vcpkg\installed\x64-windows\include\bullet;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\include\bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/hunte/git/BulletSynthesis/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/hunte/git/BulletSynthesis/BulletSynthesis/bin/Debug/BulletSynthesis.dll -installedDir C:/Users/hunte/git/BulletSynthesis/vcpkg/installed/x64-windows/debug/bin -OutVariable out
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
     <Link>
-      <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\debug\lib\LinearMath_Debug.lib;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\debug\lib\Bullet3Common_Debug.lib;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\debug\lib\BulletCollision_Debug.lib;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\debug\lib\BulletDynamics_Debug.lib;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\debug\lib\BulletSoftBody_Debug.lib;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\debug\lib\LinearMath_Debug.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/hunte/git/BulletSynthesis/BulletSynthesis/lib/Debug/BulletSynthesis.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/hunte/git/BulletSynthesis/BulletSynthesis/bin/Debug/BulletSynthesis.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
     </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Deps\Bullet3\include\bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\..\vcpkg\installed\x64-windows\include\bullet;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\include\bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="Release";BulletSynthesis_EXPORTS</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
     </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\";BulletSynthesis_EXPORTS</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\..\vcpkg\installed\x64-windows\include\bullet;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\include\bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\..\vcpkg\installed\x64-windows\include\bullet;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\include\bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/hunte/git/BulletSynthesis/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/hunte/git/BulletSynthesis/BulletSynthesis/bin/Release/BulletSynthesis.dll -installedDir C:/Users/hunte/git/BulletSynthesis/vcpkg/installed/x64-windows/bin -OutVariable out
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
     <Link>
-      <SubSystem>Console</SubSystem>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\lib\LinearMath.lib;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\lib\Bullet3Common.lib;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\lib\BulletCollision.lib;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\lib\BulletDynamics.lib;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\lib\BulletSoftBody.lib;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\lib\LinearMath.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/hunte/git/BulletSynthesis/BulletSynthesis/lib/Release/BulletSynthesis.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/hunte/git/BulletSynthesis/BulletSynthesis/bin/Release/BulletSynthesis.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
     </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\..\vcpkg\installed\x64-windows\include\bullet;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\include\bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="MinSizeRel";BulletSynthesis_EXPORTS</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\";BulletSynthesis_EXPORTS</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\..\vcpkg\installed\x64-windows\include\bullet;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\include\bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\..\vcpkg\installed\x64-windows\include\bullet;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\include\bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/hunte/git/BulletSynthesis/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/hunte/git/BulletSynthesis/BulletSynthesis/bin/MinSizeRel/BulletSynthesis.dll -installedDir C:/Users/hunte/git/BulletSynthesis/vcpkg/installed/x64-windows/bin -OutVariable out
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\lib\LinearMath.lib;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\lib\Bullet3Common.lib;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\lib\BulletCollision.lib;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\lib\BulletDynamics.lib;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\lib\BulletSoftBody.lib;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\lib\LinearMath.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/hunte/git/BulletSynthesis/BulletSynthesis/lib/MinSizeRel/BulletSynthesis.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/hunte/git/BulletSynthesis/BulletSynthesis/bin/MinSizeRel/BulletSynthesis.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\..\vcpkg\installed\x64-windows\include\bullet;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\include\bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="RelWithDebInfo";BulletSynthesis_EXPORTS</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\";BulletSynthesis_EXPORTS</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\..\vcpkg\installed\x64-windows\include\bullet;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\include\bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\..\vcpkg\installed\x64-windows\include\bullet;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\include\bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/hunte/git/BulletSynthesis/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/hunte/git/BulletSynthesis/BulletSynthesis/bin/RelWithDebInfo/BulletSynthesis.dll -installedDir C:/Users/hunte/git/BulletSynthesis/vcpkg/installed/x64-windows/bin -OutVariable out
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\lib\LinearMath.lib;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\lib\Bullet3Common.lib;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\lib\BulletCollision.lib;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\lib\BulletDynamics.lib;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\lib\BulletSoftBody.lib;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\lib\LinearMath.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/hunte/git/BulletSynthesis/BulletSynthesis/lib/RelWithDebInfo/BulletSynthesis.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/hunte/git/BulletSynthesis/BulletSynthesis/bin/RelWithDebInfo/BulletSynthesis.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Example.cpp" />
-    <ClCompile Include="NativeExport.cpp" />
-    <ClCompile Include="Physics\Entity.cpp" />
-    <ClCompile Include="Physics\PhysicsManager.cpp" />
+    <CustomBuild Include="C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\CMakeLists.txt">
+      <StdOutEncoding>UTF-8</StdOutEncoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/hunte/git/BulletSynthesis/BulletSynthesis/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/hunte/git/BulletSynthesis/BulletSynthesis -BC:/Users/hunte/git/BulletSynthesis/BulletSynthesis --check-stamp-file C:/Users/hunte/git/BulletSynthesis/BulletSynthesis/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Platform\WindowsPaths.cmake;C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\CMakeFiles\3.22.0-rc1\CMakeCCompiler.cmake;C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\CMakeFiles\3.22.0-rc1\CMakeCXXCompiler.cmake;C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\CMakeFiles\3.22.0-rc1\CMakeRCCompiler.cmake;C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\CMakeFiles\3.22.0-rc1\CMakeSystem.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\Bullet3CommonTargets-debug.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\Bullet3CommonTargets-release.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\Bullet3CommonTargets.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletCollisionTargets-debug.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletCollisionTargets-release.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletCollisionTargets.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletConfig.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletConfigVersion.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletDynamicsTargets-debug.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletDynamicsTargets-release.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletDynamicsTargets.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletInverseDynamicsTargets-debug.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletInverseDynamicsTargets-release.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletInverseDynamicsTargets.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletSoftBodyTargets-debug.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletSoftBodyTargets-release.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletSoftBodyTargets.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\LinearMathTargets-debug.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\LinearMathTargets-release.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\LinearMathTargets.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\scripts\buildsystems\vcpkg.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/hunte/git/BulletSynthesis/BulletSynthesis/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/hunte/git/BulletSynthesis/BulletSynthesis -BC:/Users/hunte/git/BulletSynthesis/BulletSynthesis --check-stamp-file C:/Users/hunte/git/BulletSynthesis/BulletSynthesis/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Platform\WindowsPaths.cmake;C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\CMakeFiles\3.22.0-rc1\CMakeCCompiler.cmake;C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\CMakeFiles\3.22.0-rc1\CMakeCXXCompiler.cmake;C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\CMakeFiles\3.22.0-rc1\CMakeRCCompiler.cmake;C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\CMakeFiles\3.22.0-rc1\CMakeSystem.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\Bullet3CommonTargets-debug.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\Bullet3CommonTargets-release.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\Bullet3CommonTargets.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletCollisionTargets-debug.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletCollisionTargets-release.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletCollisionTargets.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletConfig.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletConfigVersion.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletDynamicsTargets-debug.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletDynamicsTargets-release.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletDynamicsTargets.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletInverseDynamicsTargets-debug.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletInverseDynamicsTargets-release.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletInverseDynamicsTargets.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletSoftBodyTargets-debug.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletSoftBodyTargets-release.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletSoftBodyTargets.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\LinearMathTargets-debug.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\LinearMathTargets-release.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\LinearMathTargets.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\scripts\buildsystems\vcpkg.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/hunte/git/BulletSynthesis/BulletSynthesis/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/hunte/git/BulletSynthesis/BulletSynthesis -BC:/Users/hunte/git/BulletSynthesis/BulletSynthesis --check-stamp-file C:/Users/hunte/git/BulletSynthesis/BulletSynthesis/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Platform\WindowsPaths.cmake;C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\CMakeFiles\3.22.0-rc1\CMakeCCompiler.cmake;C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\CMakeFiles\3.22.0-rc1\CMakeCXXCompiler.cmake;C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\CMakeFiles\3.22.0-rc1\CMakeRCCompiler.cmake;C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\CMakeFiles\3.22.0-rc1\CMakeSystem.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\Bullet3CommonTargets-debug.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\Bullet3CommonTargets-release.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\Bullet3CommonTargets.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletCollisionTargets-debug.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletCollisionTargets-release.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletCollisionTargets.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletConfig.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletConfigVersion.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletDynamicsTargets-debug.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletDynamicsTargets-release.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletDynamicsTargets.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletInverseDynamicsTargets-debug.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletInverseDynamicsTargets-release.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletInverseDynamicsTargets.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletSoftBodyTargets-debug.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletSoftBodyTargets-release.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletSoftBodyTargets.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\LinearMathTargets-debug.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\LinearMathTargets-release.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\LinearMathTargets.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\scripts\buildsystems\vcpkg.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/hunte/git/BulletSynthesis/BulletSynthesis/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/hunte/git/BulletSynthesis/BulletSynthesis -BC:/Users/hunte/git/BulletSynthesis/BulletSynthesis --check-stamp-file C:/Users/hunte/git/BulletSynthesis/BulletSynthesis/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\Platform\WindowsPaths.cmake;C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\CMakeFiles\3.22.0-rc1\CMakeCCompiler.cmake;C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\CMakeFiles\3.22.0-rc1\CMakeCXXCompiler.cmake;C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\CMakeFiles\3.22.0-rc1\CMakeRCCompiler.cmake;C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\CMakeFiles\3.22.0-rc1\CMakeSystem.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\Bullet3CommonTargets-debug.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\Bullet3CommonTargets-release.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\Bullet3CommonTargets.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletCollisionTargets-debug.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletCollisionTargets-release.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletCollisionTargets.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletConfig.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletConfigVersion.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletDynamicsTargets-debug.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletDynamicsTargets-release.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletDynamicsTargets.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletInverseDynamicsTargets-debug.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletInverseDynamicsTargets-release.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletInverseDynamicsTargets.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletSoftBodyTargets-debug.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletSoftBodyTargets-release.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\BulletSoftBodyTargets.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\LinearMathTargets-debug.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\LinearMathTargets-release.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\share\bullet\LinearMathTargets.cmake;C:\Users\hunte\git\BulletSynthesis\vcpkg\scripts\buildsystems\vcpkg.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Logger.h" />
-    <ClInclude Include="Physics\Entity.h" />
-    <ClInclude Include="Physics\PhysicsManager.h" />
+    <ClCompile Include="C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\src\NativeExport.cpp" />
+    <ClCompile Include="C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\src\PhysicsManager.cpp" />
+    <ClInclude Include="C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\src\PhysicsManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Research.txt" />
+    <ProjectReference Include="C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\ZERO_CHECK.vcxproj">
+      <Project>{38D74ED2-C101-31D1-A7DD-CAE6FDDC0896}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,0 +1,7 @@
+﻿  NativeExport.cpp
+C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\src\NativeExport.cpp(40,58): warning C4190: 'To_Bullet_Quaternion' has C-linkage specified, but returns UDT 'btQuaternion' which is incompatible with C
+C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\include\bullet\LinearMath\btQuaternion.h(49): message : see declaration of 'btQuaternion'
+C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\src\NativeExport.cpp(53,53): warning C4190: 'To_Bullet_Vector_3' has C-linkage specified, but returns UDT 'btVector3' which is incompatible with C
+C:\Users\hunte\git\BulletSynthesis\vcpkg\installed\x64-windows\include\bullet\LinearMath/btVector3.h(81): message : see declaration of 'btVector3'
+     Creating library C:/Users/hunte/git/BulletSynthesis/BulletSynthesis/lib/Release/BulletSynthesis.lib and object C:/Users/hunte/git/BulletSynthesis/BulletSynthesis/lib/Release/BulletSynthesis.exp
+  BulletSynthesis.vcxproj -> C:\Users\hunte\git\BulletSynthesis\BulletSynthesis\bin\Release\BulletSynthesis.dll

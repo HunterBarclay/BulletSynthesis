@@ -1,0 +1,45 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-3.22/Modules/CMakeCInformation.cmake
+C:/Program Files/CMake/share/cmake-3.22/Modules/CMakeCXXInformation.cmake
+C:/Program Files/CMake/share/cmake-3.22/Modules/CMakeCommonLanguageInclude.cmake
+C:/Program Files/CMake/share/cmake-3.22/Modules/CMakeDependentOption.cmake
+C:/Program Files/CMake/share/cmake-3.22/Modules/CMakeGenericSystem.cmake
+C:/Program Files/CMake/share/cmake-3.22/Modules/CMakeInitializeConfigs.cmake
+C:/Program Files/CMake/share/cmake-3.22/Modules/CMakeLanguageInformation.cmake
+C:/Program Files/CMake/share/cmake-3.22/Modules/CMakeRCInformation.cmake
+C:/Program Files/CMake/share/cmake-3.22/Modules/CMakeSystemSpecificInformation.cmake
+C:/Program Files/CMake/share/cmake-3.22/Modules/CMakeSystemSpecificInitialize.cmake
+C:/Program Files/CMake/share/cmake-3.22/Modules/Compiler/CMakeCommonCompilerMacros.cmake
+C:/Program Files/CMake/share/cmake-3.22/Modules/Compiler/MSVC-C.cmake
+C:/Program Files/CMake/share/cmake-3.22/Modules/Compiler/MSVC-CXX.cmake
+C:/Program Files/CMake/share/cmake-3.22/Modules/Platform/Windows-MSVC-C.cmake
+C:/Program Files/CMake/share/cmake-3.22/Modules/Platform/Windows-MSVC-CXX.cmake
+C:/Program Files/CMake/share/cmake-3.22/Modules/Platform/Windows-MSVC.cmake
+C:/Program Files/CMake/share/cmake-3.22/Modules/Platform/Windows.cmake
+C:/Program Files/CMake/share/cmake-3.22/Modules/Platform/WindowsPaths.cmake
+C:/Users/hunte/git/BulletSynthesis/BulletSynthesis/CMakeFiles/3.22.0-rc1/CMakeCCompiler.cmake
+C:/Users/hunte/git/BulletSynthesis/BulletSynthesis/CMakeFiles/3.22.0-rc1/CMakeCXXCompiler.cmake
+C:/Users/hunte/git/BulletSynthesis/BulletSynthesis/CMakeFiles/3.22.0-rc1/CMakeRCCompiler.cmake
+C:/Users/hunte/git/BulletSynthesis/BulletSynthesis/CMakeFiles/3.22.0-rc1/CMakeSystem.cmake
+C:/Users/hunte/git/BulletSynthesis/BulletSynthesis/CMakeLists.txt
+C:/Users/hunte/git/BulletSynthesis/vcpkg/installed/x64-windows/share/bullet/Bullet3CommonTargets-debug.cmake
+C:/Users/hunte/git/BulletSynthesis/vcpkg/installed/x64-windows/share/bullet/Bullet3CommonTargets-release.cmake
+C:/Users/hunte/git/BulletSynthesis/vcpkg/installed/x64-windows/share/bullet/Bullet3CommonTargets.cmake
+C:/Users/hunte/git/BulletSynthesis/vcpkg/installed/x64-windows/share/bullet/BulletCollisionTargets-debug.cmake
+C:/Users/hunte/git/BulletSynthesis/vcpkg/installed/x64-windows/share/bullet/BulletCollisionTargets-release.cmake
+C:/Users/hunte/git/BulletSynthesis/vcpkg/installed/x64-windows/share/bullet/BulletCollisionTargets.cmake
+C:/Users/hunte/git/BulletSynthesis/vcpkg/installed/x64-windows/share/bullet/BulletConfig.cmake
+C:/Users/hunte/git/BulletSynthesis/vcpkg/installed/x64-windows/share/bullet/BulletConfigVersion.cmake
+C:/Users/hunte/git/BulletSynthesis/vcpkg/installed/x64-windows/share/bullet/BulletDynamicsTargets-debug.cmake
+C:/Users/hunte/git/BulletSynthesis/vcpkg/installed/x64-windows/share/bullet/BulletDynamicsTargets-release.cmake
+C:/Users/hunte/git/BulletSynthesis/vcpkg/installed/x64-windows/share/bullet/BulletDynamicsTargets.cmake
+C:/Users/hunte/git/BulletSynthesis/vcpkg/installed/x64-windows/share/bullet/BulletInverseDynamicsTargets-debug.cmake
+C:/Users/hunte/git/BulletSynthesis/vcpkg/installed/x64-windows/share/bullet/BulletInverseDynamicsTargets-release.cmake
+C:/Users/hunte/git/BulletSynthesis/vcpkg/installed/x64-windows/share/bullet/BulletInverseDynamicsTargets.cmake
+C:/Users/hunte/git/BulletSynthesis/vcpkg/installed/x64-windows/share/bullet/BulletSoftBodyTargets-debug.cmake
+C:/Users/hunte/git/BulletSynthesis/vcpkg/installed/x64-windows/share/bullet/BulletSoftBodyTargets-release.cmake
+C:/Users/hunte/git/BulletSynthesis/vcpkg/installed/x64-windows/share/bullet/BulletSoftBodyTargets.cmake
+C:/Users/hunte/git/BulletSynthesis/vcpkg/installed/x64-windows/share/bullet/LinearMathTargets-debug.cmake
+C:/Users/hunte/git/BulletSynthesis/vcpkg/installed/x64-windows/share/bullet/LinearMathTargets-release.cmake
+C:/Users/hunte/git/BulletSynthesis/vcpkg/installed/x64-windows/share/bullet/LinearMathTargets.cmake
+C:/Users/hunte/git/BulletSynthesis/vcpkg/scripts/buildsystems/vcpkg.cmake

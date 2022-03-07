@@ -30,6 +30,12 @@ namespace Synthesis {
             NativePhysics.Set_World_Gravity(gravity);
         }
 
+        public static int GetNumIteration()
+            => NativePhysics.Get_Physics_Num_Iterations();
+        public static void SetNumIteration(int numIter) {
+            NativePhysics.Set_Physics_Num_Iterations(numIter);
+        }
+
         #endregion
 
         #region Creation
@@ -197,6 +203,10 @@ namespace Synthesis {
             internal extern static unsafe Vec3 Get_World_Gravity();
             [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
             internal extern static unsafe void Set_World_Gravity(Vec3 gravity);
+            [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
+            internal extern static unsafe int Get_Physics_Num_Iterations();
+            [DllImport("BulletSynthesis.dll", CallingConvention = CallingConvention.Cdecl)]
+            internal extern static unsafe void Set_Physics_Num_Iterations(int numIter);
 
             #endregion
 

@@ -1,3 +1,5 @@
+using System;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,57 +12,123 @@ public class BulletTest : MonoBehaviour {
 
     private HingeConstraint _hinge;
 
+    public Mesh CubeMesh;
+    public Mesh SphereMesh;
+    public Material CubeMaterial;
+
     private void Awake() {
         PhysicsHandler.DestroySimulation();
     }
 
     private void Start() {
 
-        PhysicsHandler.SetWorldGravity(ToBullet(0.0f, -9.81f, 0.0f));
+        BulletSetup();
 
         // Create Dynamic A
-        var shapeA = BoxShape.Create(new Vec3 { x = 0.5f, y = 0.5f, z = 0.5f });
-        var objA = PhysicsObject.Create(shapeA, 10);
-        objA.ActivationState = ActivationState.DISABLE_DEACTIVATION;
-        objA.Position = new Vec3 { x = 0f, y = 5f, z = 0f };
-        objA.Damping = (0.05f, 0.0f);
-        PuppetA.BulletRep = objA;
+        // var shapeA = BoxShape.Create(new Vec3 { x = 0.5f, y = 0.5f, z = 0.5f });
+        // var objA = PhysicsObject.Create(shapeA, 10);
+        // objA.ActivationState = ActivationState.DISABLE_DEACTIVATION;
+        // objA.Position = new Vec3 { x = 0f, y = 5f, z = 0f };
+        // objA.Damping = (0.05f, 0.0f);
+        // PuppetA.BulletRep = objA;
 
-        // Create Dynamic B
-        var shapeB = BoxShape.Create(new Vec3 { x = 0.5f, y = 0.5f, z = 0.5f });
-        var objB = PhysicsObject.Create(shapeB, 10);
-        objB.ActivationState = ActivationState.DISABLE_DEACTIVATION;
-        objB.Position = new Vec3 { x = 1f, y = 6f, z = 0f };
-        objB.Damping = (0.05f, 0.0f);
-        PuppetB.BulletRep = objB;
+        // // Create Dynamic B
+        // var shapeB = BoxShape.Create(new Vec3 { x = 0.5f, y = 0.5f, z = 0.5f });
+        // var objB = PhysicsObject.Create(shapeB, 10);
+        // objB.ActivationState = ActivationState.DISABLE_DEACTIVATION;
+        // objB.Position = new Vec3 { x = 1f, y = 6f, z = 0f };
+        // objB.Damping = (0.05f, 0.0f);
+        // PuppetB.BulletRep = objB;
 
-        // Create Hinge A
-        Vec3 pivotA = ToBullet( 0.5f,  0.5f,  0.0f);
-        Vec3 pivotB = ToBullet(-0.5f, -0.5f,  0.0f);
-        Vec3 axis = ToBullet(0, 0, 1);
-        _hinge = HingeConstraint.Create(objA, objB, pivotA, pivotB, axis, axis, -Mathf.PI / 2.0f, Mathf.PI / 2.0f);
-        _hinge.LimitSoftness = 0.05f;
-        _hinge.MotorMaxImpulse = 1f;
-        _hinge.MotorTargetVelocity = -Mathf.PI;
-        _hinge.MotorEnable = true;
+        // // Create Hinge A
+        // Vec3 pivotA = ToBullet( 0.5f,  0.5f,  0.0f);
+        // Vec3 pivotB = ToBullet(-0.5f, -0.5f,  0.0f);
+        // Vec3 axis = ToBullet(0, 0, 1);
+        // _hinge = HingeConstraint.Create(objA, objB, pivotA, pivotB, axis, axis, -Mathf.PI / 2.0f, Mathf.PI / 2.0f);
+        // _hinge.LimitSoftness = 0.05f;
+        // _hinge.MotorMaxImpulse = 1f;
+        // _hinge.MotorTargetVelocity = -Mathf.PI;
+        // _hinge.MotorEnable = true;
 
         // Create Static Ground
-        var big = BoxShape.Create(new Vec3 { x = 5.0f, y = 0.1f, z = 5.0f });
+    }
+
+    private StreamWriter sw;
+    private void BulletSetup() {
+        PhysicsHandler.SetWorldGravity(ToBullet(0.0f, -9.81f, 0.0f));
+
+        PhysicsHandler.SetNumIteration(10);
+
+        int width = 5;
+        int length = 5;
+
+        int objectCount = 0;
+
+        for (int x = -width; x <= width; x++) {
+            for (int z = -length; z <= length; z++) {
+                for (int y = 4; y < 4 + 10; y++) {
+
+                    objectCount++;
+
+                    bool useCube = UnityEngine.Random.Range(0, 2) == 0;
+
+                    GameObject g = new GameObject($"{x},{y},{z}");
+                    var puppet = g.AddComponent<BulletPuppet>();
+                    Shape shape;
+                    if (useCube)
+                        shape = BoxShape.Create(ToBullet(0.5f, 0.5f, 0.5f));
+                    else
+                        shape = SphereShape.Create(0.5f);
+                    var obj = PhysicsObject.Create(shape, 1);
+                    obj.Position = ToBullet(x, y, z);
+                    puppet.BulletRep = obj;
+
+                    var filter = g.AddComponent<MeshFilter>();
+                    if (useCube)
+                        filter.mesh = CubeMesh;
+                    else
+                        filter.mesh = SphereMesh;
+                    var renderer = g.AddComponent<MeshRenderer>();
+                    renderer.material = CubeMaterial;
+                }
+            }
+        }
+
+        Debug.Log($"Num Objects: {objectCount}");
+
+        var big = BoxShape.Create(new Vec3 { x = 10.0f, y = 0.1f, z = 10.0f });
         var compound = CompoundShape.Create(1);
         compound.AddShape(big, new Vec3(), ToBullet(Quaternion.identity));
         var groundObj = PhysicsObject.Create(compound);
         groundObj.Position = new Vec3 { x = 0, y = -0.1f,  z = 0 };
         Ground.BulletRep = groundObj;
+
+        sw = File.CreateText("Output.csv");
+        sw.WriteLine("entry_number,step_delta,puppet_delta");
+        sw.Flush();
     }
 
     private void Update() {
-        PhysicsHandler.Step(Time.deltaTime);
-        BulletManager.UpdatePuppets();
+        BulletUpdate();
+    }
 
-        float sign = Mathf.Sign(_hinge.MotorTargetVelocity);
-        if (sign > 0 ? _hinge.Angle > 60 * Mathf.Deg2Rad : _hinge.Angle < -60 * Mathf.Deg2Rad) {
-            _hinge.MotorTargetVelocity = _hinge.MotorTargetVelocity * -1;
-        }
+    private int counter = 0;
+    private void BulletUpdate() {
+        DateTime before = DateTime.Now;
+        PhysicsHandler.Step(Time.deltaTime);
+        TimeSpan stepDelta = DateTime.Now - before;
+        before = DateTime.Now;
+        BulletManager.UpdatePuppets();
+        TimeSpan puppetDelta = DateTime.Now - before;
+
+        sw.WriteLine($"{counter},{stepDelta.TotalMilliseconds},{puppetDelta.TotalMilliseconds}");
+        sw.Flush();
+        counter++;
+
+        // float sign = Mathf.Sign(_hinge.MotorTargetVelocity);
+        // if (sign > 0 ? _hinge.Angle > 60 * Mathf.Deg2Rad : _hinge.Angle < -60 * Mathf.Deg2Rad) {
+        //     _hinge.MotorTargetVelocity = _hinge.MotorTargetVelocity * -1;
+        // }
 
         // Raycast testing
 
@@ -81,6 +149,8 @@ public class BulletTest : MonoBehaviour {
     }
 
     private void OnDestroy() {
+        sw.Close();
+
         BulletManager.KillAll();
         PhysicsHandler.DestroySimulation();
     }
