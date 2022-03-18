@@ -65,11 +65,19 @@ extern "C" {
 	// Check pointer handling. Maybe use a unique ptr or something
 	btVector3* To_Vector_3_Array(float* verts, int len) {
 		btVector3* bt_verts = new btVector3[len / 3];
+
+		std::ofstream myfile;
+		myfile.open("ToVector3ArrayTest.txt");
+
 		int j;
 		for (int i = 0; i < len / 3; i++) {
 			j = i * 3;
 			bt_verts[i] = btVector3(btScalar(verts[j]), btScalar(verts[j + 1]), btScalar(verts[j + 2]));
+			myfile << verts[j] << ", " << verts[j + 1] << ", " << verts[j + 2] << "\n";
 		}
+
+		myfile.close();
+
 		return bt_verts;
 	}
 
@@ -152,9 +160,12 @@ extern "C" {
 		return new btBoxShape(To_Bullet_Vector_3(halfSize));
 	}
 	EXPORT void* Create_Convex_Shape(float* verts, int len) {
-		btVector3* bt_verts = To_Vector_3_Array(verts, len);
+		/*btVector3* bt_verts = To_Vector_3_Array(verts, len);
 		btConvexPointCloudShape* shape = new btConvexPointCloudShape(bt_verts, len / 3, btVector3(btScalar(1.), btScalar(1.), btScalar(1.)));
 		delete[] bt_verts;
+		return shape;*/
+
+		btConvexHullShape* shape = new btConvexHullShape(verts, len / 3, sizeof(float) * 4);
 		return shape;
 	}
 	EXPORT void* Create_Sphere_Shape(float radius) {

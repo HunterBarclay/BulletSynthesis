@@ -65,5 +65,10 @@ namespace Synthesis {
 
     public class ConvexShape : Shape {
         internal ConvexShape(VoidPointer ptr) : base(ptr) { }
+
+        public static ConvexShape Create(Vec3[] vertCloud) {
+            var shape = new ConvexShape(PhysicsHandler.CreateConvexShape(vertCloud));
+            return shape;
+        }
     }
 }

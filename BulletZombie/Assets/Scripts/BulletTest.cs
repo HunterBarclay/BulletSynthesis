@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -59,53 +60,90 @@ public class BulletTest : MonoBehaviour {
 
         PhysicsHandler.SetNumIteration(10);
 
-        int width = 5;
-        int length = 5;
-
-        int objectCount = 0;
-
-        for (int x = -width; x <= width; x++) {
-            for (int z = -length; z <= length; z++) {
-                for (int y = 4; y < 4 + 10; y++) {
-
-                    objectCount++;
-
-                    bool useCube = UnityEngine.Random.Range(0, 2) == 0;
-
-                    GameObject g = new GameObject($"{x},{y},{z}");
-                    var puppet = g.AddComponent<BulletPuppet>();
-                    Shape shape;
-                    if (useCube)
-                        shape = BoxShape.Create(ToBullet(0.5f, 0.5f, 0.5f));
-                    else
-                        shape = SphereShape.Create(0.5f);
-                    var obj = PhysicsObject.Create(shape, 1);
-                    obj.Position = ToBullet(x, y, z);
-                    puppet.BulletRep = obj;
-
-                    var filter = g.AddComponent<MeshFilter>();
-                    if (useCube)
-                        filter.mesh = CubeMesh;
-                    else
-                        filter.mesh = SphereMesh;
-                    var renderer = g.AddComponent<MeshRenderer>();
-                    renderer.material = CubeMaterial;
-                }
-            }
-        }
-
-        Debug.Log($"Num Objects: {objectCount}");
-
-        var big = BoxShape.Create(new Vec3 { x = 10.0f, y = 0.1f, z = 10.0f });
-        var compound = CompoundShape.Create(1);
-        compound.AddShape(big, new Vec3(), ToBullet(Quaternion.identity));
-        var groundObj = PhysicsObject.Create(compound);
-        groundObj.Position = new Vec3 { x = 0, y = -0.1f,  z = 0 };
+        var groundShape = BoxShape.Create(ToBullet(10f, 0.1f, 10f));
+        var groundObj = PhysicsObject.Create(groundShape);
+        groundObj.Position = ToBullet(0, -2, 0);
+        var q = ToBullet(Quaternion.Euler(20, 0, 0));
+        Debug.Log($"{q.x}, {q.y}, {q.z}, {q.w}");
+        groundObj.Rotation = q;
+        
         Ground.BulletRep = groundObj;
 
-        sw = File.CreateText("Output.csv");
-        sw.WriteLine("entry_number,step_delta,puppet_delta");
-        sw.Flush();
+        CreateConvexObject(SphereMesh);
+
+        // int width = 5;
+        // int length = 5;
+
+        // int objectCount = 0;
+
+        // for (int x = -width; x <= width; x++) {
+        //     for (int z = -length; z <= length; z++) {
+        //         for (int y = 4; y < 4 + 10; y++) {
+
+        //             objectCount++;
+
+        //             bool useCube = UnityEngine.Random.Range(0, 2) == 0;
+
+        //             GameObject g = new GameObject($"{x},{y},{z}");
+        //             var puppet = g.AddComponent<BulletPuppet>();
+        //             Shape shape;
+        //             if (useCube)
+        //                 shape = BoxShape.Create(ToBullet(0.5f, 0.5f, 0.5f));
+        //             else
+        //                 shape = SphereShape.Create(0.5f);
+        //             var obj = PhysicsObject.Create(shape, 1);
+        //             obj.Position = ToBullet(x, y, z);
+        //             puppet.BulletRep = obj;
+
+        //             var filter = g.AddComponent<MeshFilter>();
+        //             if (useCube)
+        //                 filter.mesh = CubeMesh;
+        //             else
+        //                 filter.mesh = SphereMesh;
+        //             var renderer = g.AddComponent<MeshRenderer>();
+        //             renderer.material = CubeMaterial;
+        //         }
+        //     }
+        // }
+
+        // Debug.Log($"Num Objects: {objectCount}");
+
+        // var big = BoxShape.Create(new Vec3 { x = 10.0f, y = 0.1f, z = 10.0f });
+        // var compound = CompoundShape.Create(1);
+        // compound.AddShape(big, new Vec3(), ToBullet(Quaternion.identity));
+        // var groundObj = PhysicsObject.Create(compound);
+        // groundObj.Position = new Vec3 { x = 0, y = -0.1f,  z = 0 };
+        // Ground.BulletRep = groundObj;
+
+        // sw = File.CreateText("Output.csv");
+        // sw.WriteLine("entry_number,step_delta,puppet_delta");
+        // sw.Flush();
+    }
+
+    public GameObject CreateConvexObject(Mesh m) {
+        // var verts = SphereMesh.vertices.AsParallel().Select<Vector3, Vec3>(x => ToBullet(x));
+        var verts = new Vec3[] {
+            new Vec3 { x = -0.5f, y = -0.5f, z = -0.5f },
+            new Vec3 { x = -0.5f, y =  0.5f, z = -0.5f },
+            new Vec3 { x =  0.5f, y =  0.5f, z = -0.5f },
+            new Vec3 { x =  0.5f, y = -0.5f, z = -0.5f },
+            new Vec3 { x = -0.5f, y = -0.5f, z =  0.5f },
+            new Vec3 { x = -0.5f, y =  0.5f, z =  0.5f },
+            new Vec3 { x =  0.5f, y =  0.5f, z =  0.5f },
+            new Vec3 { x =  0.5f, y = -0.5f, z =  0.5f }
+        };
+        var shape = ConvexShape.Create(verts.ToArray());
+        // var shape = SphereShape.Create(0.5f);
+        var obj = PhysicsObject.Create(shape, 1);
+        var gameObject = new GameObject();
+        var filter = gameObject.AddComponent<MeshFilter>();
+        filter.mesh = m;
+        var renderer = gameObject.AddComponent<MeshRenderer>();
+        renderer.material = CubeMaterial;
+        var puppet = gameObject.AddComponent<BulletPuppet>();
+        puppet.BulletRep = obj;
+        obj.Position = ToBullet(0f, 10f, 0f);
+        return gameObject;
     }
 
     private void Update() {
@@ -121,8 +159,8 @@ public class BulletTest : MonoBehaviour {
         BulletManager.UpdatePuppets();
         TimeSpan puppetDelta = DateTime.Now - before;
 
-        sw.WriteLine($"{counter},{stepDelta.TotalMilliseconds},{puppetDelta.TotalMilliseconds}");
-        sw.Flush();
+        // sw.WriteLine($"{counter},{stepDelta.TotalMilliseconds},{puppetDelta.TotalMilliseconds}");
+        // sw.Flush();
         counter++;
 
         // float sign = Mathf.Sign(_hinge.MotorTargetVelocity);
@@ -149,7 +187,7 @@ public class BulletTest : MonoBehaviour {
     }
 
     private void OnDestroy() {
-        sw.Close();
+        // sw.Close();
 
         BulletManager.KillAll();
         PhysicsHandler.DestroySimulation();
